@@ -1,5 +1,4 @@
-# This file is self-contained and ready for the Portainer Web Editor.
-# All environment variables are embedded directly in the file.
+# docker-compose.yml
 version: '3.8'
 
 services:
@@ -7,19 +6,16 @@ services:
     build: .
     command: gunicorn the_syndicate.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - .:/app
+      - /data/mafiawars/app:/app
     ports:
       - "8000:8000"
     environment:
-      # Django Core Settings
-      - SECRET_KEY=insecure-development-key-change-me
+      - SECRET_KEY=a-very-secret-key-please-change-for-production
       - DEBUG=1
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 web
-      # Database and Celery Connection URLs
       - DATABASE_URL=postgres://user:password@db:5432/the_syndicate_db
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      # Email settings (prints emails to the docker log)
       - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
     depends_on:
       - db
@@ -31,7 +27,6 @@ services:
     volumes:
       - /data/mafiawars/db:/var/lib/postgresql/data/
     environment:
-      # These variables configure the PostgreSQL database itself
       - POSTGRES_DB=the_syndicate_db
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
@@ -47,15 +42,12 @@ services:
     volumes:
       - /data/mafiawars/app:/app
     environment:
-      # Django Core Settings
-      - SECRET_KEY=insecure-development-key-change-me
+      - SECRET_KEY=a-very-secret-key-please-change-for-production
       - DEBUG=1
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 web
-      # Database and Celery Connection URLs
       - DATABASE_URL=postgres://user:password@db:5432/the_syndicate_db
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      # Email settings
       - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
     depends_on:
       - db
@@ -68,15 +60,12 @@ services:
     volumes:
       - /data/mafiawars/app:/app
     environment:
-      # Django Core Settings
-      - SECRET_KEY=insecure-development-key-change-me
+      - SECRET_KEY=a-very-secret-key-please-change-for-production
       - DEBUG=1
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 web
-      # Database and Celery Connection URLs
       - DATABASE_URL=postgres://user:password@db:5432/the_syndicate_db
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      # Email settings
       - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
     depends_on:
       - db
