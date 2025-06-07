@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+env/
+.env
+
+# Secrets - VERY IMPORTANT
+stack.env
+.env.dev
+
+# Django
+db.sqlite3
+*.log
+
+# IDEs
+.idea/
+.vscode/
