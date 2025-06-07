@@ -4,19 +4,13 @@ version: '3.8'
 services:
   web:
     build: .
-    command: gunicorn the_syndicate.wsgi:application --bind 0.0.0.0:8033
-    volumes:
-      - /data/mafiawars/app:/app
+    command: gunicorn the_syndicate.wsgi:application --bind 0.0.0.0:8000
+    # volumes:  <-- DELETE THIS SECTION
+    #   - /data/mafiawars/app:/app
     ports:
-      - "8033:8033"
+      - "8000:8000"
     environment:
-      - SECRET_KEY=a-very-secret-key-please-change-for-production
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 web
-      - DATABASE_URL=postgres://user:password@db:5432/the_syndicate_db
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+      # ... (environment variables are correct, leave them)
     depends_on:
       - db
       - redis
@@ -24,12 +18,10 @@ services:
 
   db:
     image: postgres:13
-    volumes:
+    volumes: # <-- THIS VOLUME IS CORRECT, LEAVE IT ALONE
       - /data/mafiawars/db:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=the_syndicate_db
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      # ... (environment variables are correct, leave them)
     restart: unless-stopped
 
   redis:
@@ -39,16 +31,10 @@ services:
   celery_worker:
     build: .
     command: celery -A the_syndicate worker -l info
-    volumes:
-      - /data/mafiawars/app:/app
+    # volumes: <-- DELETE THIS SECTION
+    #   - /data/mafiawars/app:/app
     environment:
-      - SECRET_KEY=a-very-secret-key-please-change-for-production
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 web
-      - DATABASE_URL=postgres://user:password@db:5432/the_syndicate_db
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+      # ... (environment variables are correct, leave them)
     depends_on:
       - db
       - redis
@@ -57,16 +43,10 @@ services:
   celery_beat:
     build: .
     command: celery -A the_syndicate beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    volumes:
-      - /data/mafiawars/app:/app
+    # volumes: <-- DELETE THIS SECTION
+    #   - /data/mafiawars/app:/app
     environment:
-      - SECRET_KEY=a-very-secret-key-please-change-for-production
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 web
-      - DATABASE_URL=postgres://user:password@db:5432/the_syndicate_db
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+      # ... (environment variables are correct, leave them)
     depends_on:
       - db
       - redis
