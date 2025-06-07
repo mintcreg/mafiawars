@@ -5,8 +5,9 @@ django==4.1
 django-environ==0.9.0
 psycopg2-binary==2.9.3
 Pillow==9.2.0
-django-celery-beat==2.5.0  # <--- THIS IS THE FIX
+django-celery-beat==2.5.0
 django-celery-results==2.4.0
+dj-database-url==1.0.0     
 
 # Tasks
 celery==5.2.7
