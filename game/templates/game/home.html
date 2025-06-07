@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Player Info Column -->
+        <div class="col-md-4 card p-3 mb-3">
+            <h3>{{ player.user.username }}</h3>
+            <p>Level: {{ player.level }}</p>
+            <div class="progress mb-2">
+                <div class="progress-bar" role="progressbar" style="width: {% widthratio player.xp player.xp_to_next_level 100 %}%" >
+                    {{ player.xp }}/{{ player.xp_to_next_level }} XP
+                </div>
+            </div>
+            <hr>
+            <p><strong>Cash:</strong> ${{ player.cash }}</p>
+            <hr>
+            <p>Health: {{ player.health }} / {{ player.max_health }}</p>
+            <p>Energy: {{ player.energy }} / {{ player.max_energy }}</p>
+            <p>Stamina: {{ player.stamina }} / {{ player.max_stamina }}</p>
+        </div>
+
+        <!-- Stats & Equipment Column -->
+        <div class="col-md-4 card p-3 mb-3">
+            <h4>Combat Stats</h4>
+            <p>Attack: {{ total_attack }}</p>
+            <p>Defense: {{ total_defense }}</p>
+            <hr>
+            <h4>My Equipment</h4>
+            <ul>
+            {% for item in player.playerequipment_set.all %}
+                <li>{{ item.template.name }} (+{{item.template.attack_boost}} Atk / +{{item.template.defense_boost}} Def)</li>
+            {% empty %}
+                <li>You own no equipment.</li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Family Column -->
+        <div class="col-md-4 card p-3 mb-3">
+            <h4>The Syndicate</h4>
+            <p>Family Size: {{ player.family.count }}</p>
+            <a href="{% url 'game:family' %}" class="btn btn-secondary">Manage Family</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Your Family</h2>
+<p>A larger family makes you stronger. Share this link to recruit new members:</p>
+<input type="text" class="form-control mb-3" value="{{ recruitment_link }}" readonly>
+
+<h4>Family Members ({{ player.family.count }})</h4>
+<ul class="list-group">
+    {% for member in player.family.all %}
+    <li class="list-group-item">{{ member.user.username }} - Level {{ member.level }}</li>
+    {% empty %}
+    <li class="list-group-item">You have no one in your family yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
