@@ -24,7 +24,7 @@ INSTALLED_APPS = [
 
     # Third Party
     'django_celery_beat',
-    'bootstrap5',
+    'django_bootstrap5',
 
     # Local Apps
     'users',
