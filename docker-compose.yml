@@ -4,11 +4,11 @@ version: '3.8'
 services:
   web:
     build: .
-    command: gunicorn the_syndicate.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn the_syndicate.wsgi:application --bind 0.0.0.0:8033
     # volumes:  <-- DELETE THIS SECTION
     #   - /data/mafiawars/app:/app
     ports:
-      - "8000:8000"
+      - "8033:8033"
     environment:
       # ... (environment variables are correct, leave them)
     depends_on:
