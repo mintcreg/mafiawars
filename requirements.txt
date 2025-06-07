@@ -10,7 +10,7 @@ django-celery-results==2.4.0
 dj-database-url==1.0.0
 
 # Frontend
-django-bootstrap-v5==23.3  # <--- ADD THIS LINE
+django-bootstrap5==23.3      # <--- THIS IS THE CORRECT PACKAGE NAME
 
 # Tasks
 celery==5.2.7
