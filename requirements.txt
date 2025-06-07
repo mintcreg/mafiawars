@@ -7,7 +7,10 @@ psycopg2-binary==2.9.3
 Pillow==9.2.0
 django-celery-beat==2.5.0
 django-celery-results==2.4.0
-dj-database-url==1.0.0     
+dj-database-url==1.0.0
+
+# Frontend
+django-bootstrap-v5==23.3  # <--- ADD THIS LINE
 
 # Tasks
 celery==5.2.7
